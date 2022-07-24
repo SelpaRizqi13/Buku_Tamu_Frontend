@@ -8,6 +8,8 @@ import 'package:blogapp/services/user_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/user.dart';
+
 class ApiBukuTamu {
   //static final host='http://192.168.43.189/webtani/public';
   static final host = 'http://192.168.43.147:8000/api';
@@ -43,6 +45,21 @@ class ApiBukuTamu {
       }
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<User> fetchAlbum() async {
+    int user = await getUserId();
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse("http://192.168.43.147:8000/api/userById/$user"),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load album');
     }
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:blogapp/models/api_response.dart';
 import 'package:blogapp/models/user.dart';
 import 'package:blogapp/services/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant.dart';
@@ -29,9 +32,13 @@ class _LoginState extends State<Login> {
   bool loading = false;
 
   void _loginUser() async {
+    String str = txtEmail.text;
+    int len = str.length;
     ApiResponse response = await login(txtEmail.text, txtPassword.text);
+
     if (response.error == null) {
       _saveAndRedirectToHome(response.data as User);
+      print(len);
       print(response.data);
     } else {
       setState(() {
@@ -95,8 +102,11 @@ class _LoginState extends State<Login> {
                 child: TextFormField(
                     controller: txtPassword,
                     obscureText: !passwordVisible,
-                    validator: (val) =>
-                        val!.length < 6 ? 'Required at least 6 chars' : null,
+                    validator: (val) => val!.isEmpty
+                        ? 'Invalid password'
+                        : val.length < 6
+                            ? 'Required at least 6 chars'
+                            : null,
                     decoration: InputDecoration(
                         labelText: 'Password',
                         suffixIcon: IconButton(

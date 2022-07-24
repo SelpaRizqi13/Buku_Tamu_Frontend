@@ -1,17 +1,18 @@
-// ignore_for_file: unnecessary_new
+// ignore_for_file: unnecessary_new, unused_local_variable
+
+import 'dart:convert';
+import 'dart:math';
 
 import 'package:blogapp/screens/home.dart';
 import 'package:blogapp/screens/pages/BukuTamu/tokenSayaPage.dart';
 
 import 'package:blogapp/screens/pages/BukuTamu/bukuTamu.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:blogapp/screens/pages/info/info.dart';
 
 import 'package:blogapp/screens/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
-import '../models/api_response.dart';
 import '../models/user.dart';
 import '../services/user_service.dart';
 import '../shared/shared.dart';
@@ -26,33 +27,15 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-  User? user;
-  bool loading = true;
+  String randomNumber = 'x';
+  late String body;
+  late Future<User> futureAlbum;
 
-  void getUser() async {
-    ApiResponse response = await getUserDetail();
-    if (response.error == null) {
-      setState(() {
-        user = response.data as User;
-        loading = false;
-      });
-    } else if (response.error == unauthorized) {
-      logout().then((value) => {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => Login()),
-                (route) => false)
-          });
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
-    }
-  }
-
-  @override
-  void initState() {
-    getUser();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   futureAlbum = fetchAlbum();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,25 +48,25 @@ class _DrawerPageState extends State<DrawerPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(children: [
-              CircleAvatar(
-                  // p
-                  ),
-              //jarak antar avatar dan text
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  Text(
-                    '',
-                    style: mDrawerStyle,
-                  ),
-                  Text(
-                    'Mahasiswa',
-                    style: mSubDrawerStyle,
-                  )
-                ],
-              )
+              // CircleAvatar(
+              //     // p
+              //     ),
+              // //jarak antar avatar dan text
+              // const SizedBox(
+              //   width: 10,
+              // ),
+              // Column(
+              //   children: [
+              //     Text(
+              //       "selpa",
+              //       style: mDrawerStyle,
+              //     ),
+              //     Text(
+              //       'Mahasiswa',
+              //       style: mSubDrawerStyle,
+              //     )
+              //   ],
+              // )
             ]),
             Column(children: [
               ListTile(
@@ -111,9 +94,27 @@ class _DrawerPageState extends State<DrawerPage> {
                 textColor: Colors.white,
                 leading: const Icon(Icons.menu_book_outlined),
                 title: Text("Buku Tamu", style: mDrawerStyle),
-                onTap: () {
-                  Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => const BukuTamuPage()));
+                onTap: () async {
+                  int user = await getUserId();
+                  String token = await getToken();
+                  var response = await http.get(
+                    Uri.parse("http://192.168.43.147:8000/api/userById/$user"),
+                    headers: {
+                      'Accept': 'application/json',
+                      'Authorization': 'Bearer $token'
+                    },
+                  );
+                  Map<String, dynamic> data =
+                      json.decode(response.body) as Map<String, dynamic>;
+                  setState(() {
+                    body = data["data"]["id"].toString();
+                    randomNumber = Random().nextInt(2000).toString();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (BuildContext context) => BukuTamuPage(
+                              random: randomNumber,
+                              body: body,
+                            )));
+                  });
                 },
               ),
               ListTile(

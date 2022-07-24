@@ -1,14 +1,17 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'dart:convert';
+
 import 'package:blogapp/services/apiJadwal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_html/flutter_html.dart';
+import 'package:http/http.dart' as http;
 import '../models/carousel_model.dart';
 import '../models/jadwal.dart';
-
+import '../models/user.dart';
+import '../services/user_service.dart';
 import '../shared/shared.dart';
 
 import 'detailJadwal.dart';
@@ -20,6 +23,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var body;
+  bool load = false;
+
   bool loading = true;
   double xOffset = 0;
   double yOffset = 0;
@@ -85,15 +91,16 @@ class _HomeState extends State<Home> {
                                   });
                                 },
                                 icon: const Icon(Icons.menu)),
-                        Column(
-                          children: const [
-                            CircleAvatar(),
-                          ],
-                        )
+                        // Column(
+                        //   children: const [
+                        //     CircleAvatar(),
+                        //   ],
+                        // )
                       ]),
                 ),
               ],
             ),
+
             Container(
                 margin: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -112,9 +119,10 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text("Selpa"),
+                    Text("")
                   ],
                 )),
+
             Container(
               alignment: Alignment.centerLeft,
               margin: const EdgeInsets.only(left: 16, right: 16),
@@ -257,16 +265,21 @@ class _HomeState extends State<Home> {
                                       Text(
                                         listJadwal[index].namaKegiatan,
                                         style: TextStyle(
-                                            fontSize: 16, color: Colors.black),
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text(
-                                        listJadwal[index].deskripsi,
-                                        maxLines: 2,
-                                        style: TextStyle(fontSize: 10),
-                                      )
+                                      Html(
+                                        data: listJadwal[index].deskripsi,
+                                        style: {
+                                          '#': Style(
+                                              height: 50,
+                                              fontSize: FontSize(12)),
+                                        },
+                                      ),
                                     ],
                                   )),
                                 ],

@@ -83,7 +83,8 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                   controller: nameController,
-                  validator: (val) => val!.isEmpty ? 'Invalid name' : null,
+                  validator: (val) =>
+                      val!.isEmpty ? 'The name field is required' : null,
                   decoration: kInputDecoration('Name')),
               SizedBox(
                 height: 20,
@@ -92,7 +93,7 @@ class _RegisterState extends State<Register> {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (val) =>
-                      val!.isEmpty ? 'Invalid email address' : null,
+                      val!.isEmpty ? 'The email field is required' : null,
                   decoration: kInputDecoration('Email')),
               SizedBox(
                 height: 20,
@@ -100,8 +101,11 @@ class _RegisterState extends State<Register> {
               TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  validator: (val) =>
-                      val!.length < 6 ? 'Required at least 6 chars' : null,
+                  validator: (val) => val!.isEmpty
+                      ? 'The password field is required'
+                      : val.length < 6
+                          ? 'Required at least 6 chars'
+                          : null,
                   decoration: kInputDecoration('Password')),
             ]),
             SizedBox(

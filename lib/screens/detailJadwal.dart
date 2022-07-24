@@ -3,7 +3,7 @@
 import 'package:blogapp/services/apiJadwal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../models/jadwal.dart';
 
 class DetailJadwalPage extends StatefulWidget {
@@ -29,10 +29,8 @@ class _DetailJadwalPageState extends State<DetailJadwalPage> {
       body: SafeArea(
           minimum: EdgeInsets.symmetric(horizontal: 16),
           child: Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
+              padding: EdgeInsets.only(top: 20),
+              child: ListView(shrinkWrap: true, children: [
                 Text(
                   widget.jadwal.namaKegiatan,
                   style: TextStyle(color: Colors.black, fontSize: 32),
@@ -114,20 +112,10 @@ class _DetailJadwalPageState extends State<DetailJadwalPage> {
                 SizedBox(
                   height: 20,
                 ),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      text: widget.jadwal.deskripsi,
-                      style: GoogleFonts.notoSerif(
-                        color: Colors.black,
-                        fontSize: 18,
-                        height: 1.7,
-                        wordSpacing: 2,
-                      ))
-                ]))
-              ],
-            ),
-          )),
+                Html(
+                  data: widget.jadwal.deskripsi,
+                )
+              ]))),
     );
   }
 }

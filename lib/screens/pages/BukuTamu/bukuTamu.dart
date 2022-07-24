@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:blogapp/models/instansi.dart';
 import 'package:blogapp/models/pegawai.dart';
+
 import 'package:blogapp/screens/pages/BukuTamu/tokenSayaPage.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,13 @@ import '../../../services/user_service.dart';
 import '../../../shared/shared.dart';
 
 class BukuTamuPage extends StatefulWidget {
-  const BukuTamuPage({Key? key}) : super(key: key);
+  // const BukuTamuPage({Key? key}) : super(key: key);
+
+  BukuTamuPage({required this.random, required this.body});
+
+  //properti
+  String random;
+  String body;
 
   @override
   _BukuTamuPageState createState() => _BukuTamuPageState();
@@ -27,7 +34,6 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
   TextEditingController _namaTamu = TextEditingController();
   TextEditingController _alamat = TextEditingController();
   TextEditingController _namaInstansi = TextEditingController();
-
   TextEditingController _tujuanKunjungan = TextEditingController();
 
   int? IdInstansi;
@@ -41,7 +47,7 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
       Uri.parse('http://192.168.43.147:8000/api/getBukuTamu'),
       headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
       body: {
-        "no_token": "T-0014",
+        "no_token": "T-" + widget.body + widget.random.toString(),
         "jumlah_tamu": _jumlahTamu.text.toString(),
         "nama_tamu": _namaTamu.text,
         "alamat": _alamat.text,
@@ -77,18 +83,24 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 30)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
-              child: Text("Jumlah Tamu Yang Akan Berkunjung"),
+              child: Text("Jumlah Tamu"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               controller: _jumlahTamu,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Jumlah Tamu";
                 }
                 return null;
               },
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   prefixIcon: Align(
                     widthFactor: 1.0,
@@ -101,14 +113,19 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5))),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Nama Tamu"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Nama Tamu";
                 }
                 return null;
               },
@@ -125,14 +142,19 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5))),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Asal Instansi"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Asal Instansi";
                 }
                 return null;
               },
@@ -149,17 +171,23 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5))),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Alamat"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Alamat";
                 }
                 return null;
               },
+              keyboardType: TextInputType.streetAddress,
               controller: _alamat,
               decoration: InputDecoration(
                   prefixIcon: Align(
@@ -173,14 +201,19 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5))),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Tujuan Instansi yang akan Dikunjungi"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             DropdownSearch<Instansi>(
               validator: (value) {
                 if (value == null) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Tujuan Instansi";
                 }
                 return null;
               },
@@ -209,14 +242,19 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                     .toList();
               }),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Tujuan Pegawai yang akan Dikunjungi"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             DropdownSearch<Pegawai>(
               validator: (value) {
                 if (value == null) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Tujuan Pegawai";
                 }
                 return null;
               },
@@ -250,17 +288,23 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                     .toList();
               }),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Tanggal Berkunjung"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Tanggal Berkunjung";
                 }
                 return null;
               },
+              keyboardType: TextInputType.none,
               controller: _date,
               decoration: InputDecoration(
                   prefixIcon: Align(
@@ -286,17 +330,23 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                 }
               },
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Jam Berkunjung"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Jam Berkunjung";
                 }
                 return null;
               },
+              keyboardType: TextInputType.none,
               controller: _time,
               decoration: InputDecoration(
                   prefixIcon: Align(
@@ -327,14 +377,19 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                 }
               },
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               child: Text("Tujuan Berkunjung"),
+            ),
+            SizedBox(
+              height: 10,
             ),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter Jumlah Product";
+                  return "Please enter Tujuan berkunjung";
                 }
                 return null;
               },
