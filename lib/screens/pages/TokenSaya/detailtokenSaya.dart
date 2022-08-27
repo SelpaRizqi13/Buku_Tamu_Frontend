@@ -93,7 +93,18 @@ class _DetailTokenSayaPageState extends State<DetailTokenSayaPage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(widget.buku_tamu.status),
+                                    Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 85, 161, 125),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        widget.buku_tamu.status,
+                                        style: TextStyle(color: whiteColor),
+                                      ),
+                                    )
                                   ],
                                 )
                               ],

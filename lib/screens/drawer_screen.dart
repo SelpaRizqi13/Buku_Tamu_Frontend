@@ -7,6 +7,7 @@ import 'package:blogapp/screens/home.dart';
 import 'package:blogapp/screens/pages/BukuTamu/tokenSayaPage.dart';
 
 import 'package:blogapp/screens/pages/BukuTamu/bukuTamu.dart';
+import 'package:blogapp/screens/pages/TokenSaya/percobaan.dart';
 import 'package:http/http.dart' as http;
 import 'package:blogapp/screens/pages/info/info.dart';
 
@@ -98,7 +99,8 @@ class _DrawerPageState extends State<DrawerPage> {
                   int user = await getUserId();
                   String token = await getToken();
                   var response = await http.get(
-                    Uri.parse("http://192.168.43.147:8000/api/userById/$user"),
+                    Uri.parse(
+                        "https://web.bukutamu.tif18.xyz/api/userById/$user"),
                     headers: {
                       'Accept': 'application/json',
                       'Authorization': 'Bearer $token'
@@ -125,7 +127,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 onTap: () {
                   Navigator.of(context).push(new MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          const TokenSayaPage()));
+                          const PercobaanPage()));
                 },
               ),
               // ListTile(

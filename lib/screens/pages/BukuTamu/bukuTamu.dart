@@ -44,7 +44,7 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
   Future saveData() async {
     String token = await getToken();
     final response = await http.post(
-      Uri.parse('http://192.168.43.147:8000/api/getBukuTamu'),
+      Uri.parse('https://web.bukutamu.tif18.xyz/api/getBukuTamu'),
       headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
       body: {
         "no_token": "T-" + widget.body + widget.random.toString(),
@@ -229,7 +229,7 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
               asyncItems: ((text) async {
                 String token = await getToken();
                 var respon = await http.get(
-                    Uri.parse("http://192.168.43.147:8000/api/getInstansi"),
+                    Uri.parse("https://web.bukutamu.tif18.xyz/api/getInstansi"),
                     headers: {
                       'Accept': 'application/json',
                       'Authorization': 'Bearer $token'
@@ -275,7 +275,7 @@ class _BukuTamuPageState extends State<BukuTamuPage> {
                 String token = await getToken();
                 var respon = await http.get(
                     Uri.parse(
-                        "http://192.168.43.147:8000/api/getPegawaiInstansiById/$IdInstansi"),
+                        "https://web.bukutamu.tif18.xyz/api/getPegawaiInstansiById/$IdInstansi"),
                     headers: {
                       'Accept': 'application/json',
                       'Authorization': 'Bearer $token'

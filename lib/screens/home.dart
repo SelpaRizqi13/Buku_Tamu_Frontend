@@ -250,6 +250,10 @@ class _HomeState extends State<Home> {
                                             listJadwal[index].image,
                                         fit: BoxFit.cover,
                                       ),
+                                      // child: Image(
+                                      //   image: AssetImage(
+                                      //       'assets/images/seminar.jpg'),
+                                      // ),
                                     ),
                                   ),
                                   const SizedBox(

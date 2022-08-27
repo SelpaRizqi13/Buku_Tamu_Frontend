@@ -125,13 +125,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: MediaQuery.of(context).size.width / 2,
                   height: MediaQuery.of(context).size.width / 2,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 2),
+                    border: Border.all(
+                        color: Color.fromARGB(255, 155, 136, 136), width: 2),
                     shape: BoxShape.circle,
                     color: Colors.white,
                     image: _imageFile == null
                         ? user?.image != null
                             ? DecorationImage(
                                 image: NetworkImage('${user!.image}'),
+                                //             image: AssetImage('assets/images/profile.png'),
                                 fit: BoxFit.cover)
                             : null
                         : DecorationImage(

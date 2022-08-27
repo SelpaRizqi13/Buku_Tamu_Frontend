@@ -48,54 +48,16 @@ class _DetailJadwalPageState extends State<DetailJadwalPage> {
                       spacing: 4,
                       children: [
                         Icon(
-                          Icons.remove_red_eye_outlined,
+                          Icons.calendar_month,
                           color: Colors.grey,
                           size: 18,
                         ),
-                        Text('6.5K Views',
+                        Text(widget.jadwal.tanggalKegiatan.toString(),
                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
+                              color: Colors.black,
+                              fontSize: 15,
                               fontWeight: FontWeight.w100,
                             )),
-                      ],
-                    ),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 4,
-                      children: [
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.grey,
-                          size: 18,
-                        ),
-                        Text(
-                          '106 Likes',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        )
-                      ],
-                    ),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 4,
-                      children: [
-                        Icon(
-                          Icons.bookmark,
-                          color: Colors.grey,
-                          size: 18,
-                        ),
-                        Text(
-                          '55 Saves',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        )
                       ],
                     ),
                   ],
@@ -107,6 +69,9 @@ class _DetailJadwalPageState extends State<DetailJadwalPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(ApiService.host + widget.jadwal.image),
+                    // child: Image(
+                    //   image: AssetImage('assets/images/seminar.jpg'),
+                    // ),
                   ),
                 ),
                 SizedBox(

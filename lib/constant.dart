@@ -2,7 +2,7 @@
 import 'package:blogapp/shared/shared.dart';
 import 'package:flutter/material.dart';
 
-const baseURL = 'http://192.168.43.147:8000/api';
+const baseURL = 'https://web.bukutamu.tif18.xyz/api';
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
 const logoutURL = baseURL + '/logout';

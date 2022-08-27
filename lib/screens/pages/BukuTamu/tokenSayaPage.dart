@@ -67,7 +67,7 @@ class _TokenSayaPageState extends State<TokenSayaPage> {
                 ),
                 FutureBuilder<List<BukuTamu>>(
                     future: ApiBukuTamu.getData(),
-                    builder: (context, snapshot) {
+                    builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         List<BukuTamu> listBukuTamu = snapshot.data!;
                         return Expanded(
@@ -162,12 +162,30 @@ class _TokenSayaPageState extends State<TokenSayaPage> {
                                                                       fontSize:
                                                                           18,
                                                                     )),
-                                                                Text(
-                                                                  '${listBukuTamu[index].status}',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18,
+                                                                Container(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            85,
+                                                                            161,
+                                                                            125),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                  ),
+                                                                  child: Text(
+                                                                    '${listBukuTamu[index].status}',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18,
+                                                                        color: Colors
+                                                                            .white),
                                                                   ),
                                                                 )
                                                               ],
@@ -247,12 +265,12 @@ class _TokenSayaPageState extends State<TokenSayaPage> {
                                                                         ),
                                                                       )),
                                                                   onTap: () {
-                                                                    Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) => DetailTokenSayaPage(
-                                                                                  buku_tamu: listBukuTamu[index],
-                                                                                )));
+                                                                    // Navigator.push(
+                                                                    //     context,
+                                                                    //     MaterialPageRoute(
+                                                                    //         builder: (context) => DetailTokenSayaPage(
+                                                                    //               buku_tamu: listBukuTamu[index],
+                                                                    //             )));
                                                                   },
                                                                 ),
                                                                 // SizedBox(

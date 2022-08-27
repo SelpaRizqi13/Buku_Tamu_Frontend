@@ -18,7 +18,7 @@ class BukuTamu {
 
   int id;
   String noToken;
-  int jumlahTamu;
+  String jumlahTamu;
   String namaTamu;
   String alamat;
   String namaInstansi;
@@ -34,7 +34,7 @@ class BukuTamu {
   factory BukuTamu.fromJson(Map<String, dynamic> json) => BukuTamu(
         id: json["id"],
         noToken: json["no_token"].toString(),
-        jumlahTamu: json["jumlah_tamu"],
+        jumlahTamu: json["jumlah_tamu"].toString(),
         namaTamu: json["nama_tamu"].toString(),
         alamat: json["alamat"].toString(),
         namaInstansi: json["nama_instansi"].toString(),
